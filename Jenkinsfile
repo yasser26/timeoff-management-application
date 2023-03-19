@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage ('Build') {
       steps {
-        sh 'echo "trigger working' 
+        sh 'echo "trigger working"' 
       }
     }
   }
