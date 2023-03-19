@@ -1,41 +1,22 @@
-# -------------------------------------------------------------------
-# Minimal dockerfile from alpine base
-#
-# Instructions:
-# =============
-# 1. Create an empty directory and copy this file into it.
-#
-# 2. Create image with: 
-#	docker build --tag timeoff:latest .
-#
-# 3. Run with: 
-#	docker run -d -p 3000:3000 --name alpine_timeoff timeoff
-#
-# 4. Login to running container (to update config (vi config/app.json): 
-#	docker exec -ti --user root alpine_timeoff /bin/sh
-# --------------------------------------------------------------------
-FROM alpine:latest as dependencies
+FROM node:18-buster-slim
 
-RUN apk add --no-cache \
-    nodejs npm 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    make \
+    node-gyp \
+    python3 \
+    sqlite3 \
+  && rm -rf /var/lib/apt/lists/*
 
-COPY package.json  .
-RUN npm install 
-
-FROM alpine:latest
-
-LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.docker.cmd="docker run -d -p 3000:3000 --name alpine_timeoff"
-
-RUN apk add --no-cache \
-    nodejs npm \
-    vim
-
-RUN adduser --system app --home /app
-USER app
 WORKDIR /app
-COPY . /app
-COPY --from=dependencies node_modules ./node_modules
+
+COPY package.json package-lock.json  /app/
+
+RUN npm install -g npm && npm install
+
+COPY . .
+
+ENV NODE_ENV=development
 
 CMD npm start
 
