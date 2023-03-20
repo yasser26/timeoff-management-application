@@ -1,0 +1,5 @@
+az group create --name YasserRG --location brazilsouth
+az acr create --name RegistryYasser --resource-group YasserRG --sku Basic --admin-enabled true
+
+az appservice plan create --name ASP-YasserRG-8e5b --resource-group  YasserRG --is-linux
+az webapp create --resource-group YasserRG --plan ASP-YasserRG-8e5b --name timemanagementyasser --deployment-container-image-name registryyasser.azurecr.io/registryyasser/time-app:latest
