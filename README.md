@@ -1,3 +1,14 @@
+# Continuous Integration solution using Jenkins
+
+The main objetive of this fork is to implement a fully automated continous integration solution using Jenkins. The timeoff-management app will be checked out from this GitHub repo, then, it will be containerized using Docker to have a more flexible manage of it accross the used platforms. 
+
+Build the docker image will be done using a Jenkins pipeline. The pipeline will have several stages; one of themm is to download the latest code version from the repositorie, build the Docker image is the next stage and the final will be push and deploy the application to cloud.
+
+Timeoff-management docker image will be pushed to a cloud service where it can be possible track every version of produced "artifact" when a new CI/CD flow starts. The selected option is Azure Container Registry.
+
+Finally, the application will be deployed to an Azure Web App resource where it can be accessed from any browser with internet access through an URL. The cloud resources will be created using an infrastructure-as-a-code focus with the help of Azure CLI.
+
+
 
 # TimeOff.Management
 
