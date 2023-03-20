@@ -19,5 +19,15 @@ pipeline {
         }
       }
     }
+    
+    stage ('Push timeDockerImage to ACR') {
+      steps {
+        script {
+          docker.withRegistry("https://registryyasser.azurecr.io", "ACR") {
+          docker.push()
+          }
+        }
+      }
+    }
   }
 }
