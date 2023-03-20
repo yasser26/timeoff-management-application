@@ -24,7 +24,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry("https://registryyasser.azurecr.io", "ACR") {
-          docker.push()
+          timeDockerImage.push()
           }
         }
       }
