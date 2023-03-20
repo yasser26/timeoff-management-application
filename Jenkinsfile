@@ -15,7 +15,7 @@ pipeline {
     stage ('Build Time-Managament docker image') {
       steps {
         script {
-          timeDockerImage = docker.build RegistryYasser 
+          timeDockerImage = docker.build "RegistryYasser/time-app" 
         }
       }
     }
